@@ -1,0 +1,36 @@
+{
+  "name": "hospital-ws",
+  "version": "1.0.0",
+  "description": "Proyecto Hospital",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://crdigitales.visualstudio.com/hospital/_git/hospital-ws"
+  },
+  "author": "creativosdigitales.co",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1",
+    "chromedriver": "^2.12.0",
+    "coffee-script": "^1.12.7",
+    "cors": "^2.8.4",
+    "directory-tree": "^2.1.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mocha": "^2.0.1",
+    "moment": "^2.23.0",
+    "mustache": "^2.3.2",
+    "node-xlsx": "^0.12.1",
+    "nodemon": "^1.18.11",
+    "pg": "^7.4.3",
+    "python-shell": "^1.0.4",
+    "randomstring": "^1.1.5",
+    "selenium-webdriver": "^2.44.0"
+  }
+}
