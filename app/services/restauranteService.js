@@ -17,11 +17,11 @@ class CrudOperations {
     constructor() {
         this.cs = config.connection;
         this.client = new Pool({ connectionString: this.cs });
-        this.baseFolder = config.scriptBasePathV1+"/restaurante";
+        this.baseFolder = config.scriptBasePathV1+"restaurante/";
     }
 
-    async get(folder, fileSql, id, query) {
-        let sqlQuery = await this.getScriptSQL(folder, fileSql, id, query, "GET");
+    async getRestaurante(fileName,id) {
+        let sqlQuery = await this.getScriptSQL(fileName,id);
         return await this.execute(sqlQuery);
     }
 
@@ -77,44 +77,25 @@ class CrudOperations {
      * @returns {Promise<void>}
      */
 
-    async getScriptSQL(folder, fileSql, id, query, method) {
-        let queryTemplate = await this.getQueryTemplate(folder, fileSql, method);
+    async getScriptSQL(fileName, id) {
+        let queryTemplate = await this.getQueryTemplate(fileName);
         let jsonData = {};
-        //En caso de que el query sea undefined key sera 0 y jsonData{}.
-        let keys = {};
-        if (query !== undefined) {
-            keys = Object.keys(query).length;
-            jsonData = Object.assign({}, query);
-        } else {
-            keys.length = 0;
-            jsonData = {};
-        }
         if (id) {
             jsonData.id = id;
         }
-        //No existen datos para filtrar no entra al fillwhere.
-        if (keys.length !== 0) {
-            jsonData.where = this.fillWhere(query, id);
-        }
-        let script = mustache.render(queryTemplate, jsonData);
-        return script;
+        return mustache.render(queryTemplate, jsonData);
     }
 
     /**
      * Segun el verbo, se obtiene el nombre del script sql a mapear.
-     * @param folder
-     * @param fileSql
-     * @param method
+     * @param fileName
      * @returns {Promise<*>}
      */
 
-    async getQueryTemplate(name) {
-        let jsonData = { folder: folder };
-        jsonData.fileSql = fileSql == undefined ? folder : fileSql;
-
-        let fileTemplate = this.baseFolder + "{{folder }}/";
+    async getQueryTemplate(fileName) {
+        let fileTemplate = this.baseFolder + fileName;
         // GET FILE SQL MUSTACHE
-        let sqlFileTemplate = mustache.render(fileTemplate, jsonData);
+        let sqlFileTemplate = mustache.render(fileTemplate);
         return fs.readFileSync(sqlFileTemplate).toString();
     }
 
