@@ -1,9 +1,12 @@
 #!/usr/bin/env nodejs
-let express = require("express");
-let bodyParser = require("body-parser");
-let cors = require("cors");
+var express = require("express");
+var bodyParser = require("body-parser");
+var cors = require("cors");
+
 //init
-let app = express();
+
+var app = express();
+
 // support cors
 app.use(cors());
 // support parsing of application/json type post data
