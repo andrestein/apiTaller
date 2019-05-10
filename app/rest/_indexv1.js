@@ -1,6 +1,6 @@
 let express = require("express");
-let app = express.Router();
-const vs = "api/v1";
+let app = express();
+const vs = "/api/v1";
 //REST Restaurantes
 app.use(vs+"/restaurante", require("./restauranteRest"));
 // // REST Lugares
