@@ -1,7 +1,20 @@
 let express = require("express");
+let googleTrends = require('google-trends-api');
 let router = express();
 let restauranteService = require("../services/restauranteService").Pg();
-router.get("/:id?", async function (req, res) {
+
+router.get("/top/", async function (req, res) {
+    let result = (await restauranteService.getRestaurante("get-toprestaurante.sql")).rows;
+    if(result !== undefined){
+        let googleData = await googleTrends.interestOverTime({keyword: result[0].nombre_local});
+        res.status(200).send({
+            restaurante: result,
+            googleData: JSON.parse(googleData)
+        });
+    }
+});
+
+router.get("/restaurante/:id?/", async function (req, res) {
     let id = req.params.id;
     try {
         if (id === undefined) {
